@@ -26,19 +26,16 @@ public class EquipeService{
 	    return eqs.save(equipe);
 	}
 	
-	public Equipe editEquipe(Equipe newEquipe, @PathVariable Long id) {
+	public Equipe editEquipe( Long Id,Equipe equipeDetails) {
 		
-		return eqs.findById(id).map(equipe -> {
-			equipe.setId(newEquipe.getId());
-			equipe.setJoueur(newEquipe.getJoueur());
-            equipe.setStaff(newEquipe.getStaff());
-            equipe.setEname(newEquipe.getEname());
-            return eqs.save(equipe);
-        }).orElseGet(() -> {
-            newEquipe.setId(id);
-            return eqs.save(newEquipe);
-        });
-		
+		   Equipe equipe = eqs.findById(Id).orElseThrow(null);
+		    
+		    equipe.setEname(equipeDetails.getEname());
+		    equipe.setJoueur(equipeDetails.getJoueur());
+		    equipe.setMatches(equipeDetails.getMatches());
+		    equipe.setStaff(equipeDetails.getStaff());
+		   
+            return eqs.save(equipeDetails);
 	}
 	public void deleteequipe(@PathVariable Long id) {
 		eqs.deleteById(id);

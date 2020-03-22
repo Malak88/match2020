@@ -44,7 +44,7 @@ public class EquipeController {
 
 	@PutMapping("/putequipe/{id}")
 	public Equipe editEquipe(Equipe newEquipe, @PathVariable Long id) {
-		return eqs.editEquipe(newEquipe, id);
+		return eqs.editEquipe(id, newEquipe);
 		
 	}
 	@DeleteMapping("/deleteequipe/{id}")
