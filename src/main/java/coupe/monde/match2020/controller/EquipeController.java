@@ -18,7 +18,6 @@ import coupe.monde.match2020.entities.Equipe;
 import coupe.monde.match2020.repository.EquipeRepository;
 import coupe.monde.match2020.service.EquipeService;
 
-
 @RestController
 @RequestMapping("/api")
 public class EquipeController {

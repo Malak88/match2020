@@ -35,7 +35,10 @@ public class EquipeService{
 		    equipe.setMatches(equipeDetails.getMatches());
 		    equipe.setStaff(equipeDetails.getStaff());
 		   
-            return eqs.save(equipeDetails);
+           Equipe editEquipe=eqs.save(equipeDetails);
+           
+           return editEquipe;
+           
 	}
 	public void deleteequipe(@PathVariable Long id) {
 		eqs.deleteById(id);
