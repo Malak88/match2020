@@ -19,17 +19,19 @@ public class Joueur implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(name="joueurid")
 	private Long id;
-	private String fname;
+	private String name;
 	private String lname;
+	private Long telephone;
+	private String email;
 	
 	@JsonIgnore
 	@ManyToOne
     private Equipe equipe;
 
-	public Joueur(Long id, String fname, String lname, Equipe equipe) {
+	public Joueur(Long id, String name, String lname, Equipe equipe) {
 		super();
 		this.id = id;
-		this.fname = fname;
+		this.name = name;
 		this.lname = lname;
 		this.equipe = equipe;
 	}
@@ -46,12 +48,12 @@ public class Joueur implements Serializable{
 		this.id = id;
 	}
 
-	public String getFname() {
-		return fname;
+	public String getName() {
+		return name;
 	}
 
-	public void setFname(String fname) {
-		this.fname = fname;
+	public void setName(String fname) {
+		this.name = fname;
 	}
 
 	public String getLname() {
@@ -69,9 +71,28 @@ public class Joueur implements Serializable{
 	public void setEquipe(Equipe equipe) {
 		this.equipe = equipe;
 	}
+	
+	public Long getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(Long telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	@Override
 	public String toString() {
-		return "Joueur [id=" + id + ", nom=" + lname + ", fname" + fname + ", equipe=" + equipe + "]";
+		return "Joueur [id=" + id + ", nom=" + lname + ", fname" + name 
+				+",telephone"+telephone+",Email"+email+", equipe=" + equipe + "]";
 	}
+
+
 
 }

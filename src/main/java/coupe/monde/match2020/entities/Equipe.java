@@ -26,7 +26,9 @@ public class Equipe implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(name="equipeid")
 	private Long id;
-	private String ename;
+	private String name;
+	private String country;
+	
 	
 	@OneToMany(mappedBy="equipe",cascade = CascadeType.ALL)
 	private Set<Joueur> joueur;
@@ -38,13 +40,14 @@ public class Equipe implements Serializable {
 	@ManyToOne
 	private Matches matches;
 	
-	public Equipe(Long id, String name, Set<Joueur> joueur,Set<Staff> staff, Matches matches) {
+	public Equipe(Long id, String name, Set<Joueur> joueur,String country,Set<Staff> staff, Matches matches) {
 		super();
 		this.id = id;
-		this.ename = name;
+		this.name = name;
 		this.joueur = joueur;
 		this.staff=staff;
 		this.matches= matches;
+		this.country= country;
 	}
 	public Equipe() {
 		super();
@@ -57,12 +60,20 @@ public class Equipe implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getEname() {
-		return ename;
+	public String getName() {
+		return name;
 	}
-	public void setEname(String name) {
-		this.ename = name;
+	public void setName(String name) {
+		this.name = name;
 	}
+	
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
 	public Set<Joueur> getJoueur() {
 		return joueur;
 	}

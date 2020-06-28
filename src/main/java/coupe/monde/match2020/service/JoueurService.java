@@ -28,9 +28,13 @@ public class JoueurService {
 	public Joueur editJoueur(Joueur newJoueur, @PathVariable Long id) {
 		return eqs.findById(id).map(joueur-> {
 			joueur.setId(newJoueur.getId());
+			
+			joueur.setName(newJoueur.getName());
+			joueur.setLname(newJoueur.getLname());
+			joueur.setTelephone(newJoueur.getTelephone());
+			joueur.setEmail(newJoueur.getEmail());
 			joueur.setEquipe(newJoueur.getEquipe());
-			joueur.setFname(newJoueur.getFname());
-			joueur.setLname(newJoueur.getLname());;
+			
             return eqs.save(joueur);
         }).orElseGet(() -> {
             newJoueur.setId(id);

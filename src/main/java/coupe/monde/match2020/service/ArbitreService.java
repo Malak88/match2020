@@ -25,6 +25,12 @@ public class ArbitreService {/*implements IarbitreService si on utile interface*
 		// TODO Auto-generated method stub
 		return arepos.findAll();
 	}
+	
+	public Arbitre getArbitreById(Long Id) {
+		
+	    return arepos.findById(Id).orElseThrow(null);
+	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
+	}
    
 	public Arbitre saveArbitre(Arbitre arbitre) {
 		// TODO Auto-generated method stub

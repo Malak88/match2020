@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +20,9 @@ import coupe.monde.match2020.entities.Equipe;
 import coupe.monde.match2020.repository.EquipeRepository;
 import coupe.monde.match2020.service.EquipeService;
 
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/test")
 public class EquipeController {
 	
 	@Autowired 
@@ -32,21 +35,30 @@ public class EquipeController {
 	public List<Equipe> getAllEquipe() {
 		List<Equipe> pro = eqs.getAllEquipe();
 	
-        return pro;
-	    
+        return pro; 
 	}
 	
-	@PostMapping("/addequipe")
+	@GetMapping("/equipes/{id}")
+	@PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
+	public Equipe getEquipeById(@PathVariable(value = "id") Long Id) {
+	    return eqs.getEquipeById(Id);
+	}
+	
+	@PostMapping("/addEquipe")
+	@PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
 	public Equipe createEquipe(@Valid @RequestBody Equipe equi) {
 	    return eqs.saveEquipe(equi);
 	}
 
-	@PutMapping("/putequipe/{id}")
-	public Equipe editEquipe(Equipe newEquipe, @PathVariable Long id) {
+	@PutMapping("/editEquipe/{id}")
+	@PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
+	public Equipe editEquipe( @PathVariable(value = "id") Long id,
+			@Valid @RequestBody Equipe newEquipe) {
 		return eqs.editEquipe(id, newEquipe);
 		
 	}
-	@DeleteMapping("/deleteequipe/{id}")
+	@DeleteMapping("/deleteEquipe/{id}")
+	@PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
 	public void deleteequipe(@PathVariable Long id) {
 		eqs.deleteequipe(id);
 	}

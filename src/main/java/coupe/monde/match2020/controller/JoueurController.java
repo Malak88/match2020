@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +22,9 @@ import coupe.monde.match2020.repository.EquipeRepository;
 import coupe.monde.match2020.repository.JoueurRepository;
 import coupe.monde.match2020.service.JoueurService;
 
+@CrossOrigin("*s")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class JoueurController {
 	
 	@Autowired 
@@ -37,23 +40,27 @@ public class JoueurController {
 	}
 	
 	@GetMapping("/user/{id}")
+	@PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
 	public Joueur getJoueurById(@PathVariable(value = "id") Long Id) {
 	    return jo.findById(Id).orElseThrow(null);
 	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
 	}
 	
 	@PostMapping("/addjoueur")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Joueur createJoueur(@Valid @RequestBody Joueur joueur) {
 	    return eqs.createJoueur(joueur);
 	}
 
 	@PutMapping("/putjoueur/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Joueur editJoueur(@Valid @RequestBody Joueur newJoueur, @PathVariable Long id) {
 		return eqs.editJoueur(newJoueur, id);
 		
 	}
 	
 	@PutMapping("/affecterArt/{uid}/{pid}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void affecterArt(@PathVariable("uid") Long Id,
 			@PathVariable("pid") Long Idp) {
 		
@@ -67,6 +74,7 @@ public class JoueurController {
 	}
 	
 	@DeleteMapping("/deletejoueur/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void deletejoueur(@PathVariable Long id) {
 		eqs.deletejoueur(id);
 	}

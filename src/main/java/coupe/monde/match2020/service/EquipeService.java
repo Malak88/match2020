@@ -21,6 +21,12 @@ public class EquipeService{
         return pro;   
 	}
 	
+   public Equipe getEquipeById(Long Id) {
+		
+	    return eqs.findById(Id).orElseThrow(null);
+	           // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
+	}
+	
 	public Equipe saveEquipe(Equipe equipe) {
 		
 	    return eqs.save(equipe);
@@ -30,7 +36,8 @@ public class EquipeService{
 		
 		   Equipe equipe = eqs.findById(Id).orElseThrow(null);
 		    
-		    equipe.setEname(equipeDetails.getEname());
+		    equipe.setName(equipeDetails.getName());
+		    equipe.setCountry(equipeDetails.getCountry());
 		    equipe.setJoueur(equipeDetails.getJoueur());
 		    equipe.setMatches(equipeDetails.getMatches());
 		    equipe.setStaff(equipeDetails.getStaff());
